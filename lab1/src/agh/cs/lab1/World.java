@@ -6,7 +6,8 @@ public class World {
 
 	public static void main(String[] args) {
 		out.println("System start");
-		run(translate((args)));
+		Direction[] DirectionsList = translate((args));
+		run(DirectionsList);
 		out.println("System stop");
 	}
 
