@@ -54,7 +54,6 @@ class Vector2d {
 		return v;
 	}
 
-
 }
 
 

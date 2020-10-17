@@ -61,10 +61,10 @@ public enum MapDirection {
 				unitVector = new Vector2d(1, 0);
 				break;
 			case SOUTH:
-				unitVector = new Vector2d (-1, 0);
+				unitVector = new Vector2d (0, -1);
 				break;
 			case WEST:
-				unitVector = new Vector2d(0, -1);
+				unitVector = new Vector2d(-1, 0);
 				break;
 			default:
 				throw new IllegalStateException("Unexpected value: " + this);
