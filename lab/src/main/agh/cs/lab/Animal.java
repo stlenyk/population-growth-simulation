@@ -2,8 +2,8 @@ package agh.cs.lab;
 
 public class Animal {
 
-	MapDirection exposure = MapDirection.NORTH;
-	Vector2d position = new Vector2d(2, 2);
+	private MapDirection exposure = MapDirection.NORTH;
+	private Vector2d position = new Vector2d(2, 2);
 
 	public String toString() {
 		String s = String.valueOf("exposure: " + exposure.toSring() + "\t" + "position: " + position.toString());
@@ -35,6 +35,14 @@ public class Animal {
 				this.position = this.position.subtract(this.exposure.toUnitVector());
 				break;
 		}
+	}
+
+	MapDirection getExposure() {
+		return exposure;
+	}
+
+	Vector2d getPosition() {
+		return position;
 	}
 
 }

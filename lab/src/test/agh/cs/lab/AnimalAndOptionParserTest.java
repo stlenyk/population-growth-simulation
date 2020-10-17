@@ -25,8 +25,8 @@ public class AnimalAndOptionParserTest {
 		Animal zwierz = new Animal();
 		for(MoveDirection i: directions)
 			zwierz.move(i);
-		assertEquals(exposure, zwierz.exposure);
-		assertEquals(position, zwierz.position);
+		assertEquals(exposure, zwierz.getExposure());
+		assertEquals(position, zwierz.getPosition());
 	}
 
 	@Test
@@ -62,6 +62,7 @@ public class AnimalAndOptionParserTest {
 		moveTest(d4, e4, p4);
 		moveTest(d5, e5, p5);
 		moveTest(d6, e6, p6);
+
 	}
 
 
