@@ -8,13 +8,14 @@ public class Animal {
 	public String toString() {
 		String s = String.valueOf("exposure: " + exposure.toSring() + "\t" + "position: " + position.toString());
 		return s;
+		// <=> return "exposure: " + exposure.toSring() + "\t" + "position: " + position.toString();
 	}
 
 	// wymiary planszy
-	private int maxX = 4, maxY = 4, minX = 0, minY=0;
+	private int maxX = 4, maxY = 4, minX = 0, minY=0;	// lepsze by były wektory
 
-	void move(MoveDirection direction) {
-		Animal other = new Animal();
+	void move(MoveDirection direction) { // public
+		Animal other = new Animal();  // przesunięcie zwierzęcia powoduje urodzenie się nowego?
 		switch (direction) {
 			case LEFT:
 				this.exposure = this.exposure.previous();

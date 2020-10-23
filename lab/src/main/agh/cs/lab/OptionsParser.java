@@ -28,7 +28,7 @@ public class OptionsParser {
 					break;
 			}
 		}
-		MoveDirection[] directionsArray = new MoveDirection[directions.size()];
+		MoveDirection[] directionsArray = new MoveDirection[directions.size()];	// Arrays.copyOfRange
 		for(int i=0; i<directionsArray.length; i++)
 			directionsArray[i] = directions.get(i);
 		return directionsArray;

@@ -17,12 +17,12 @@ public class AnimalAndOptionParserTest {
 			MoveDirection.LEFT, MoveDirection.LEFT,
 			MoveDirection.RIGHT, MoveDirection.RIGHT
 		};
-		assertEquals(directionsParsed, directions);
+		assertEquals(directionsParsed, directions); // assertArrayEquals
 	}
 
 
 	public void moveTest(MoveDirection[] directions, MapDirection exposure, Vector2d position) {
-		Animal zwierz = new Animal();
+		Animal zwierz = new Animal();	// polglish
 		for(MoveDirection i: directions)
 			zwierz.move(i);
 		assertEquals(exposure, zwierz.getExposure());
