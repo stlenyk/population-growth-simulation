@@ -29,15 +29,41 @@ public class World {
 		for (MoveDirection i: directions)
 			zwierz.move(i);
 		out.println(zwierz);
-*/
 
+		//Test main.agh.cs.lab.OptionsParser
 		Animal zwierz = new Animal();
 		OptionsParser parser = new OptionsParser();
 		MoveDirection[] directions = parser.parse(args);
 		for(MoveDirection i: directions)
 			zwierz.move(i);
 		out.println(zwierz);
+*/
+
+		MoveDirection[] directions = new OptionsParser().parse(args);
+		IWorldMap map = new RectangularMap(10, 5);
+		map.place(new Animal(map));
+		map.place(new Animal(map,new Vector2d(3,4)));
+
+//		map.printObjects();
+//		out.println(map);
+//		map.run(directions);
+//		map.printObjects();
+//		out.println(map);
+
+		map.run(directions);
+
+
 	}
 
 
 }
+
+
+
+
+
+
+
+
+
+

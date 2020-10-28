@@ -6,9 +6,11 @@ import static org.junit.Assert.*;
 
 public class AnimalAndOptionParserTest {
 
+	private Vector2d p4;
+
 	@Test
 	public void parseTest() {
-		String[] directionsString = {"f", "22as", "forward", "kei3", "b", "backward",  "aa", "t", "l", "left", "right", "r"};
+		String[] directionsString = {"f", "22as", "forward", "kei3", "b", "backward", "aa", "t", "l", "left", "right", "r"};
 		OptionsParser parser = new OptionsParser();
 		MoveDirection[] directionsParsed = parser.parse(directionsString);
 		MoveDirection[] directions = {
@@ -17,7 +19,7 @@ public class AnimalAndOptionParserTest {
 			MoveDirection.LEFT, MoveDirection.LEFT,
 			MoveDirection.RIGHT, MoveDirection.RIGHT
 		};
-		assertEquals(directionsParsed, directions);
+		assertArrayEquals(directionsParsed, directions);
 	}
 
 
@@ -46,7 +48,7 @@ public class AnimalAndOptionParserTest {
 
 		MoveDirection[] d4 = {MoveDirection.LEFT, MoveDirection.BACKWARD, MoveDirection.BACKWARD, MoveDirection.BACKWARD};
 		MapDirection e4 = MapDirection.WEST;
-		Vector2d p4 =  new Vector2d(4, 2);
+		Vector2d p4 = new Vector2d(4,2);
 
 		MoveDirection[] d5 = {MoveDirection.BACKWARD, MoveDirection.RIGHT, MoveDirection.FORWARD};
 		MapDirection e5 = MapDirection.EAST;
@@ -64,7 +66,5 @@ public class AnimalAndOptionParserTest {
 		moveTest(d6, e6, p6);
 
 	}
-
-
 
 }
