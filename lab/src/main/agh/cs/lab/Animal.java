@@ -4,17 +4,35 @@ public class Animal {
 
 	private MapDirection exposure = MapDirection.NORTH;
 	private Vector2d position = new Vector2d(2, 2);
+	private IWorldMap map;
 
-	public String toString() {
-		String s = String.valueOf("exposure: " + exposure.toSring() + "\t" + "position: " + position.toString());
-		return s;
+	Animal(){}
+
+	Animal(IWorldMap map) {
+		this.map = map;
 	}
 
-	// wymiary planszy
-	private int maxX = 4, maxY = 4, minX = 0, minY=0;
+	Animal(IWorldMap map, Vector2d initialPosition) {
+		this.map = map;
+		this.position = initialPosition;
+	}
+
+	public String toString() {
+		switch (exposure) {
+			case NORTH:
+				return "N";
+			case EAST:
+				return "E";
+			case SOUTH:
+				return "S";
+			case WEST:
+				return "W";
+			default:
+				return "";
+		}
+	}
 
 	void move(MoveDirection direction) {
-		Animal other = new Animal();
 		switch (direction) {
 			case LEFT:
 				this.exposure = this.exposure.previous();
@@ -23,16 +41,12 @@ public class Animal {
 				this.exposure = this.exposure.next();
 				break;
 			case FORWARD:
-				other.position = this.position.add(exposure.toUnitVector());
-				if(other.position.x > maxX || other.position.y > maxY || other.position.x < minX || other.position.y < minY)
-					break;
-				this.position = this.position.add(exposure.toUnitVector());
+				if(map.canMoveTo(this.position.add(this.exposure.toUnitVector())))
+					this.position = this.position.add(exposure.toUnitVector());
 				break;
 			case BACKWARD:
-				other.position = this.position.subtract(exposure.toUnitVector());
-				if(other.position.x > maxX || other.position.y > maxY || other.position.x < minX || other.position.y < minY)
-					break;
-				this.position = this.position.subtract(this.exposure.toUnitVector());
+				if(map.canMoveTo(this.position.subtract(this.exposure.toUnitVector())))
+					this.position = this.position.subtract(this.exposure.toUnitVector());
 				break;
 		}
 	}
@@ -44,5 +58,16 @@ public class Animal {
 	Vector2d getPosition() {
 		return position;
 	}
+
+
+
+
+
+
+
+
+
+
+
 
 }
