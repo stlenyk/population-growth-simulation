@@ -26,7 +26,7 @@ public class AnimalAndOptionParserTest {
 	public void moveTest(MoveDirection[] directions, MapDirection exposure, Vector2d position) {
 		Animal zwierz = new Animal();
 		for(MoveDirection i: directions)
-			zwierz.move(i);
+			zwierz.move(i);	// NullPointerException?
 		assertEquals(exposure, zwierz.getExposure());
 		assertEquals(position, zwierz.getPosition());
 	}

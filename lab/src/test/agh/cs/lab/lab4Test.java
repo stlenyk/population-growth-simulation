@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class lab4Test {
+public class lab4Test {	// ubogie te testy
 
 
 	@Test
@@ -26,7 +26,7 @@ public class lab4Test {
 		Animal a1 = new Animal(map);
 		Animal a2 = new Animal(map, new Vector2d(2,4));
 		map.place(a1);
-		map.place(a2)
+		map.place(a2)		// błąd kompilacji?
 		map.run(directions);
 		assertEquals(animal.getExposure(), MapDirection.NORTH);
 		assertEquals(animal.getPosition(), new Vector2d(0, 4));

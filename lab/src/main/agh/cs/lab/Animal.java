@@ -2,20 +2,20 @@ package agh.cs.lab;
 
 public class Animal {
 
-	private MapDirection exposure = MapDirection.NORTH;
+	private MapDirection exposure = MapDirection.NORTH;	// skąd słowo exposure?
 	private Vector2d position = new Vector2d(2, 2);
 	private IWorldMap map;
 
-	Animal(){}
+	Animal(){}	// czy to jest prawidłowy konstruktor?
 
 	Animal(IWorldMap map) {
 		this.map = map;
-	}
+	}	// public
 
 	Animal(IWorldMap map, Vector2d initialPosition) {
 		this.map = map;
 		this.position = initialPosition;
-	}
+	}	// zwierzę wisi w próżni - nie dodane do mapy
 
 	public String toString() {
 		switch (exposure) {
@@ -28,7 +28,7 @@ public class Animal {
 			case WEST:
 				return "W";
 			default:
-				return "";
+				return "";	// to się nigdy nie powinno zdarzyć, a jak się zdarzy to Pan nie wykryje, bo zwraca poprawny napis
 		}
 	}
 
@@ -42,7 +42,7 @@ public class Animal {
 				break;
 			case FORWARD:
 				if(map.canMoveTo(this.position.add(this.exposure.toUnitVector())))
-					this.position = this.position.add(exposure.toUnitVector());
+					this.position = this.position.add(exposure.toUnitVector());	// powtórzone obliczenie
 				break;
 			case BACKWARD:
 				if(map.canMoveTo(this.position.subtract(this.exposure.toUnitVector())))
