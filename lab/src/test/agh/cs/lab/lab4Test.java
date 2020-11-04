@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 
 public class lab4Test {
 
-
 	@Test
 	public void t1() {
 		String[] args = {"f", "f", "f", "f", "f", "f", "f", "f", "f", "f"};

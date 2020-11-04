@@ -37,21 +37,24 @@ public class World {
 		for(MoveDirection i: directions)
 			zwierz.move(i);
 		out.println(zwierz);
-*/
 
-		MoveDirection[] directions = new OptionsParser().parse(args);
-		IWorldMap map = new RectangularMap(10, 5);
-		map.place(new Animal(map));
-		map.place(new Animal(map,new Vector2d(3,4)));
 
-//		map.printObjects();
-//		out.println(map);
+ */
+		//Test integracyjny main.agh.cs.lab.RectangularMap i Animal
+//		MoveDirection[] directions = new OptionsParser().parse(args);
+//		IWorldMap map = new RectangularMap(10, 10);
+//		map.place(new Animal(map));
+//		map.place(new Animal(map,new Vector2d(3,4)));
 //		map.run(directions);
-//		map.printObjects();
 //		out.println(map);
 
-		map.run(directions);
-
+		//Test Grassfield
+//		MoveDirection[] directions = new OptionsParser().parse(args);
+//		IWorldMap map = new GrassField(10);
+//		map.place(new Animal(map));
+//		map.place(new Animal(map,new Vector2d(3,4)));
+//		map.run(directions);
+//		out.println(map);
 
 	}
 

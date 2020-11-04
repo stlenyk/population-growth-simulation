@@ -7,6 +7,8 @@ class Vector2d {
 		this.x = x;
 		this.y = y;
 	}
+
+	@Override
 	public String toString() {
 		String s = String.valueOf("("+ this.x + "," + this.y + ")");
 		return s;
@@ -40,6 +42,7 @@ class Vector2d {
 		return v;
 	}
 
+	@Override
 	public boolean equals(Object other){
 		if (this == other)
 			return true;
@@ -52,6 +55,16 @@ class Vector2d {
 	public Vector2d opposite() {
 		Vector2d v = new Vector2d(-this.x, -this.y);
 		return v;
+	}
+
+	@Override
+	public int hashCode() {
+//		final int prime = 10007;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + this.x;
+		result = prime * result + this.y;
+		return result;
 	}
 
 }

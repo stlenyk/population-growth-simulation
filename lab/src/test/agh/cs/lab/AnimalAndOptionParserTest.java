@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class AnimalAndOptionParserTest {
 
-	private Vector2d p4;
+	IWorldMap map = new RectangularMap(4, 4);
 
 	@Test
 	public void parseTest() {
@@ -24,11 +24,11 @@ public class AnimalAndOptionParserTest {
 
 
 	public void moveTest(MoveDirection[] directions, MapDirection exposure, Vector2d position) {
-		Animal zwierz = new Animal();
+		Animal animal = new Animal(map);
 		for(MoveDirection i: directions)
-			zwierz.move(i);
-		assertEquals(exposure, zwierz.getExposure());
-		assertEquals(position, zwierz.getPosition());
+			animal.move(i);
+		assertEquals(exposure, animal.getExposure());
+		assertEquals(position, animal.getPosition());
 	}
 
 	@Test

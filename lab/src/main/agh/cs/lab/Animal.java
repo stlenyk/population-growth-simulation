@@ -6,8 +6,6 @@ public class Animal {
 	private Vector2d position = new Vector2d(2, 2);
 	private IWorldMap map;
 
-	Animal(){}
-
 	Animal(IWorldMap map) {
 		this.map = map;
 	}
@@ -17,6 +15,7 @@ public class Animal {
 		this.position = initialPosition;
 	}
 
+	@Override
 	public String toString() {
 		switch (exposure) {
 			case NORTH:
@@ -28,11 +27,12 @@ public class Animal {
 			case WEST:
 				return "W";
 			default:
-				return "";
+				return null;
 		}
 	}
 
 	void move(MoveDirection direction) {
+		Vector2d newPosition;
 		switch (direction) {
 			case LEFT:
 				this.exposure = this.exposure.previous();
@@ -41,12 +41,14 @@ public class Animal {
 				this.exposure = this.exposure.next();
 				break;
 			case FORWARD:
-				if(map.canMoveTo(this.position.add(this.exposure.toUnitVector())))
-					this.position = this.position.add(exposure.toUnitVector());
+				newPosition = this.position.add(this.exposure.toUnitVector());
+				if(map.canMoveTo(newPosition))
+					this.position = newPosition;
 				break;
 			case BACKWARD:
-				if(map.canMoveTo(this.position.subtract(this.exposure.toUnitVector())))
-					this.position = this.position.subtract(this.exposure.toUnitVector());
+				newPosition = this.position.subtract(this.exposure.toUnitVector());
+				if(map.canMoveTo(newPosition))
+					this.position = newPosition;
 				break;
 		}
 	}
@@ -58,13 +60,6 @@ public class Animal {
 	Vector2d getPosition() {
 		return position;
 	}
-
-
-
-
-
-
-
 
 
 
