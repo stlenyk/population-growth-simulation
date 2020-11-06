@@ -11,7 +11,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 	private int n;
 	private Grass[] grasses;
 
-	GrassField(int n) {
+	GrassField(int n) {	// powinien być publiczny
 		this.n = n;
 		width = Integer.MAX_VALUE;
 		height = Integer.MAX_VALUE;
