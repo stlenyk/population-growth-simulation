@@ -12,14 +12,15 @@ public class AnimalAndOptionParserTest {
 	public void parseTest() {
 		String[] directionsString = {"f", "22as", "forward", "kei3", "b", "backward", "aa", "t", "l", "left", "right", "r"};
 		OptionsParser parser = new OptionsParser();
-		MoveDirection[] directionsParsed = parser.parse(directionsString);
-		MoveDirection[] directions = {
-			MoveDirection.FORWARD, MoveDirection.FORWARD,
-			MoveDirection.BACKWARD, MoveDirection.BACKWARD,
-			MoveDirection.LEFT, MoveDirection.LEFT,
-			MoveDirection.RIGHT, MoveDirection.RIGHT
-		};
-		assertArrayEquals(directionsParsed, directions);
+//		MoveDirection[] directionsParsed = parser.parse(directionsString);
+//		MoveDirection[] directions = {
+//			MoveDirection.FORWARD, MoveDirection.FORWARD,
+//			MoveDirection.BACKWARD, MoveDirection.BACKWARD,
+//			MoveDirection.LEFT, MoveDirection.LEFT,
+//			MoveDirection.RIGHT, MoveDirection.RIGHT
+//		};
+		assertThrows(IllegalArgumentException.class, () -> parser.parse(directionsString));
+//		assertArrayEquals(directions, directionsParsed);
 	}
 
 

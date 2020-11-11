@@ -3,7 +3,7 @@ package agh.cs.lab;
 import static java.lang.Math.*;
 
 import java.util.HashSet;
-import java.util.Iterator;
+
 import java.util.Random;
 
 public class GrassField extends AbstractWorldMap implements IWorldMap {
@@ -11,12 +11,12 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 	private int n;
 	private Grass[] grasses;
 
-	GrassField(int n) {
+	public GrassField(int n) {
 		this.n = n;
 		width = Integer.MAX_VALUE;
 		height = Integer.MAX_VALUE;
-		visualize = new MapVisualizer(this);
 		generateGrasses();
+//		upperRight = new Vector2d(width, height);
 	}
 
 	private void generateGrasses() {
@@ -34,11 +34,11 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 		}
 	}
 
+	@Override
 	public Object objectAt(Vector2d position) {
-		for(Animal i: animals) {
-			if(i.getPosition().equals(position))
-				return i;
-		}
+		Object result = super.objectAt(position);
+		if(result != null)
+			return result;
 		for(Grass i: grasses) {
 			if(i.getPosition().equals(position))
 				return i;
@@ -46,7 +46,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 		return null;
 	}
 
-	public Vector2d getLowerLeft() {
+	protected Vector2d getLowerLeft() {
 		Vector2d lowerLeft = new Vector2d(width, height);
 		for(Animal i: animals)
 			lowerLeft = lowerLeft.lowerLeft(i.getPosition());
@@ -55,7 +55,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 		return lowerLeft;
 	}
 
-	public Vector2d getUpperRight() {
+	protected Vector2d getUpperRight() {
 		Vector2d upperRight = new Vector2d(0, 0);
 		for(Animal i: animals)
 			upperRight = upperRight.upperRight(i.getPosition());

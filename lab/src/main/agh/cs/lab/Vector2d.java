@@ -1,5 +1,7 @@
 package agh.cs.lab;
 
+import java.util.Objects;
+
 class Vector2d {
 
 	public final int x, y;
@@ -59,12 +61,7 @@ class Vector2d {
 
 	@Override
 	public int hashCode() {
-//		final int prime = 10007;
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + this.x;
-		result = prime * result + this.y;
-		return result;
+		return Objects.hash(x, y);
 	}
 
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class OptionsParser {
 
 	public MoveDirection[] parse(String[] args) {
-		ArrayList<MoveDirection> directions = new ArrayList<MoveDirection>();
+		ArrayList<MoveDirection> directions = new ArrayList<>();
 		for(int i=0; i< args.length; i++) {
 			switch (args[i]) {
 				case "f":
@@ -25,7 +25,7 @@ public class OptionsParser {
 					directions.add(MoveDirection.LEFT);
 					break;
 				default:
-					break;
+					throw new IllegalArgumentException(args[i] + " is not legal move specification");
 			}
 		}
 		MoveDirection[] directionsArray = new MoveDirection[directions.size()];
