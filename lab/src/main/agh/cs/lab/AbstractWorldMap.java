@@ -6,11 +6,11 @@ import java.util.LinkedHashMap;
 
 abstract class AbstractWorldMap implements IWorldMap {
 
-	protected int width, height;
+	protected int width, height;	// ile wynosi szerokość GrassField?
 //	protected Vector2d lowerLeft = new Vector2d (0, 0), upperRight;
-	protected ArrayList<Animal> animals = new ArrayList<>();
+	protected ArrayList<Animal> animals = new ArrayList<>();	// te trzy pola mogą być finalne
 	protected HashMap<Vector2d, Animal> animalsHashed = new HashMap<>();
-	private MapVisualizer visualize;
+	private MapVisualizer visualize;	// odradzam używanie czasownika na nazwę zmiennej
 
 	public AbstractWorldMap() {
 		this.visualize = new MapVisualizer(this);
@@ -31,7 +31,7 @@ abstract class AbstractWorldMap implements IWorldMap {
 	}
 
 	public boolean canMoveTo(Vector2d position) {
-		return position.follows(new Vector2d(0, 0)) && position.precedes(new Vector2d(width, height)) && !(objectAt(position) instanceof Animal);
+		return position.follows(new Vector2d(0, 0)) && position.precedes(new Vector2d(width, height)) && !(objectAt(position) instanceof Animal);	// GrassField ma być nieograniczona; a gdyby nie, to czy trzeba tworzyć te wektory co wywołanie?
 	}
 
 	public void run(MoveDirection[] directions) {

@@ -28,7 +28,7 @@ public class OptionsParser {
 					throw new IllegalArgumentException(args[i] + " is not legal move specification");
 			}
 		}
-		MoveDirection[] directionsArray = new MoveDirection[directions.size()];
+		MoveDirection[] directionsArray = new MoveDirection[directions.size()];	// czy to kopiowanie jest potrzebne, skoro Pan rzuca wyjątek?
 		for(int i=0; i<directionsArray.length; i++)
 			directionsArray[i] = directions.get(i);
 		return directionsArray;

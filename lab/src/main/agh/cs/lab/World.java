@@ -57,7 +57,7 @@ public class World {
 			map.place(new Animal(map, new Vector2d(5, 5)));
 			out.println("Everything went fine");
 		} catch(IllegalArgumentException ex) {
-			out.println("Something went wrong");
+			out.println("Something went wrong");	// przekazuje Pan komunikat w wyjątku właśnie po to, żeby tu móc powiedzieć coś więcej
 			out.println();
 		}
 		out.println("System carried on");
