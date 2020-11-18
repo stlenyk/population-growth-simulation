@@ -1,6 +1,6 @@
 package agh.cs.lab;
 
-public class Grass {
+public class Grass implements IMapElement {
 
 	private Vector2d position;
 

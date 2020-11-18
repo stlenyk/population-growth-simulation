@@ -44,7 +44,7 @@ public class World {
 		map.place(new Animal(map, new Vector2d(3, 4)));
 		map.run(directions);
 		out.println(map);
-*/
+
 		try {
 			//Test Grassfield
 			MoveDirection[] directions = new OptionsParser().parse(args);
@@ -61,8 +61,14 @@ public class World {
 			out.println();
 		}
 		out.println("System carried on");
-	}
 
+	*/
+		IWorldMap map = new GrassField(10);
+		map.place(new Animal(map));
+//		MapVisualizer visualizer = new MapVisualizer(map);
+//		visualizer.draw()
+		out.print(map);
+	}
 
 }
 

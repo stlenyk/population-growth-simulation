@@ -2,24 +2,23 @@ package agh.cs.lab;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
-abstract class AbstractWorldMap implements IWorldMap {
+abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
 
 	protected int width, height;
 //	protected Vector2d lowerLeft = new Vector2d (0, 0), upperRight;
 	protected ArrayList<Animal> animals = new ArrayList<>();
 	protected HashMap<Vector2d, Animal> animalsHashed = new HashMap<>();
-	private MapVisualizer visualize;
+	private MapVisualizer visualizer;
 
 	public AbstractWorldMap() {
-		this.visualize = new MapVisualizer(this);
+		this.visualizer = new MapVisualizer(this);
 //		upperRight = new Vector2d(this.width, this.height);
 	}
 
 	@Override
 	public String toString() {
-		return visualize.draw(getLowerLeft(), getUpperRight());
+		return visualizer.draw(getLowerLeft(), getUpperRight());
 	}
 
 	public boolean place(Animal animal) {
@@ -27,6 +26,7 @@ abstract class AbstractWorldMap implements IWorldMap {
 			throw new IllegalArgumentException(animal.getPosition() + " - can't place the animal here");
 		animals.add(animal);
 		animalsHashed.put(animal.getPosition(), animal);
+		animal.addObserver(this);
 		return true;
 	}
 
@@ -37,9 +37,7 @@ abstract class AbstractWorldMap implements IWorldMap {
 	public void run(MoveDirection[] directions) {
 		for(int i=0; i<directions.length; i++) {
 			Animal animal = animals.get(i % animals.size());
-			animalsHashed.remove(animal.getPosition());
 			animal.move(directions[i]);
-			animalsHashed.put(animal.getPosition(), animal);
 		}
 	}
 
@@ -57,4 +55,8 @@ abstract class AbstractWorldMap implements IWorldMap {
 
 	protected abstract Vector2d getUpperRight();
 
+	public void positionChanged(Vector2d oldPosition, Vector2d newPosition, Animal animal) {
+		animalsHashed.remove(oldPosition);
+		animalsHashed.put(newPosition, animal);
+	}
 }

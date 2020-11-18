@@ -10,6 +10,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 
 	private int n;
 	private Grass[] grasses;
+	MapBoundary mapBoundary;
 
 	public GrassField(int n) {
 		this.n = n;
@@ -22,6 +23,7 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 	private void generateGrasses() {
 		HashSet<Vector2d> set = new HashSet<>();
 		grasses = new Grass[n];
+		mapBoundary = new MapBoundary();
 		int range = (int) sqrt(n*10);
 		Random rand = new Random();
 		for (int i=0; i<n; i++) {
@@ -31,7 +33,15 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 			}
 			set.add(position);
 			grasses[i] = new Grass(position);
+			mapBoundary.place(grasses[i]);
 		}
+	}
+
+	@Override
+	public boolean place(Animal animal) {
+		super.place(animal);
+		mapBoundary.place(animal);
+		return true;
 	}
 
 	@Override
@@ -47,21 +57,10 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 	}
 
 	protected Vector2d getLowerLeft() {
-		Vector2d lowerLeft = new Vector2d(width, height);
-		for(Animal i: animals)
-			lowerLeft = lowerLeft.lowerLeft(i.getPosition());
-		for(Grass i: grasses)
-			lowerLeft = lowerLeft.lowerLeft(i.getPosition());
-		return lowerLeft;
+		return mapBoundary.getBoundaryLowerLeft();
 	}
 
 	protected Vector2d getUpperRight() {
-		Vector2d upperRight = new Vector2d(0, 0);
-		for(Animal i: animals)
-			upperRight = upperRight.upperRight(i.getPosition());
-		for(Grass i: grasses)
-			upperRight = upperRight.upperRight(i.getPosition());
-		return upperRight;
+		return mapBoundary.getBoundaryUpperRight();
 	}
-
 }

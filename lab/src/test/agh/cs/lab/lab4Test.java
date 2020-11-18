@@ -48,4 +48,15 @@ public class lab4Test {
 		assertEquals(MapDirection.NORTH, a2.getExposure());
 	}
 
+	@Test
+	public void t4() {
+		String[] args = {"l", "f", "b", "r", "b", "b"};
+		IWorldMap map = new RectangularMap(20,20);
+		MoveDirection[] directions = new OptionsParser().parse(args);
+		Animal a = new Animal(map, new Vector2d(15, 10));
+		map.place(a);
+		map.run(directions);
+		assertEquals(new Vector2d(15, 8), a.getPosition());
+	}
+
 }

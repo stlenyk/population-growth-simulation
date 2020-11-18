@@ -1,18 +1,22 @@
 package agh.cs.lab;
 
-public class Animal {
+import java.util.*;
+
+public class Animal implements IMapElement {
 
 	private MapDirection exposure = MapDirection.NORTH;
-	private Vector2d position = new Vector2d(2, 2);
+	private Vector2d position;
 	private IWorldMap map;
+	private final List<IPositionChangeObserver> observers;
 
 	Animal(IWorldMap map) {
-		this.map = map;
+		this(map, new Vector2d(2, 2));
 	}
 
 	Animal(IWorldMap map, Vector2d initialPosition) {
 		this.map = map;
 		this.position = initialPosition;
+		this.observers = new LinkedList<>();
 	}
 
 	@Override
@@ -32,7 +36,7 @@ public class Animal {
 	}
 
 	void move(MoveDirection direction) {
-		Vector2d newPosition;
+		Vector2d newPosition, oldPosition = this.position;
 		switch (direction) {
 			case LEFT:
 				this.exposure = this.exposure.previous();
@@ -42,13 +46,17 @@ public class Animal {
 				break;
 			case FORWARD:
 				newPosition = this.position.add(this.exposure.toUnitVector());
-				if(map.canMoveTo(newPosition))
+				if(map.canMoveTo(newPosition)) {
 					this.position = newPosition;
+					positionChanged(oldPosition, newPosition);
+				}
 				break;
 			case BACKWARD:
 				newPosition = this.position.subtract(this.exposure.toUnitVector());
-				if(map.canMoveTo(newPosition))
+				if(map.canMoveTo(newPosition)) {
 					this.position = newPosition;
+					positionChanged(oldPosition, newPosition);
+				}
 				break;
 		}
 	}
@@ -57,12 +65,21 @@ public class Animal {
 		return exposure;
 	}
 
-	Vector2d getPosition() {
+	public Vector2d getPosition() {
 		return position;
 	}
 
+	void addObserver(IPositionChangeObserver observer) {
+		observers.add(observer);
+	}
 
+	void removeObserver(IPositionChangeObserver observer) {
+		observers.remove(observer);
+	}
 
+	private void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+		observers.forEach(observer -> observer.positionChanged(oldPosition, newPosition, this));
+	}
 
 
 }
