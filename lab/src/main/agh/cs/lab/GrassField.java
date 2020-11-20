@@ -10,9 +10,9 @@ public class GrassField extends AbstractWorldMap implements IWorldMap {
 
 	private int n;
 	private Grass[] grasses;
-	MapBoundary mapBoundary;
+	MapBoundary mapBoundary;	// to powinno być prywatne
 
-	public GrassField(int n) {
+	public GrassField(int n) {	// mało mówiąca nazwa parametru
 		this.n = n;
 		width = Integer.MAX_VALUE;
 		height = Integer.MAX_VALUE;

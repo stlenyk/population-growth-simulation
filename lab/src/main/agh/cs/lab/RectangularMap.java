@@ -9,7 +9,7 @@ public class RectangularMap extends AbstractWorldMap implements IWorldMap {
 		this.width = width;
 		this.height = height;
 		lowerLeft = new Vector2d(0, 0);
-		upperRight = new Vector2d(width, height);
+		upperRight = new Vector2d(width, height);	// width - 1
 	}
 
 	protected Vector2d getLowerLeft() {
