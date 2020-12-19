@@ -2,17 +2,20 @@ package agh.cs.lab;
 
 import java.util.Objects;
 
-class Vector2d {
+public class Vector2d {
 
 	public final int x, y;
-	public Vector2d(int x, int y){
+	private TorusMap map;
+
+	public Vector2d(TorusMap map, int x, int y) {
+		this.map = map;
 		this.x = x;
 		this.y = y;
 	}
 
 	@Override
 	public String toString() {
-		String s = String.valueOf("("+ this.x + "," + this.y + ")");
+		String s = "(" + this.x + "," + this.y + ")";
 		return s;
 	}
 
@@ -25,24 +28,24 @@ class Vector2d {
 	}
 
 	public Vector2d upperRight(Vector2d other) {
-		Vector2d v = new Vector2d(Math.max(this.x, other.x), Math.max(this.y, other.y));
+		Vector2d v = new Vector2d(map, Math.max(this.x, other.x), Math.max(this.y, other.y));
 		return v;
 	}
 
 	public Vector2d lowerLeft(Vector2d other) {
-		Vector2d v = new Vector2d(Math.min(this.x, other.x), Math.min(this.y, other.y));
+		Vector2d v = new Vector2d(map, Math.min(this.x, other.x), Math.min(this.y, other.y));
 		return v;
 	}
 
 	public Vector2d add(Vector2d other) {
-		Vector2d v = new Vector2d(this.x+other.x, this.y+other.y);
+		Vector2d v = new Vector2d(map, (this.x+other.x + map.width) % map.width, (this.y+other.y + map.height) % map.height);
 		return v;
 	}
 
-	public Vector2d subtract(Vector2d other) {
-		Vector2d v = new Vector2d(this.x-other.x, this.y-other.y);
-		return v;
-	}
+//	public Vector2d subtract(Vector2d other) {
+//		Vector2d v = new Vector2d(this.x-other.x, this.y-other.y);
+//		return v;
+//	}
 
 	@Override
 	public boolean equals(Object other){
@@ -55,7 +58,7 @@ class Vector2d {
 	}
 
 	public Vector2d opposite() {
-		Vector2d v = new Vector2d(-this.x, -this.y);
+		Vector2d v = new Vector2d(map, -this.x, -this.y);
 		return v;
 	}
 

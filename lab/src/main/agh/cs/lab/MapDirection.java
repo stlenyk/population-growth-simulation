@@ -1,75 +1,95 @@
 package agh.cs.lab;
 
+import java.util.Random;
+
 public enum MapDirection {
 	NORTH,
+	NORTHEAST,
+	EAST,
+	SOUTHEAST,
 	SOUTH,
+	SOUTHWEST,
 	WEST,
-	EAST;
+	NORTHWEST;
 
-	public String toSring() {
-		switch(this) {
+	@Override
+	public String toString() {
+		String s = " ";
+		switch (this) {
 			case NORTH:
-				return "Północ";
+				s = "\u21D1";
+				break;
+			case NORTHEAST:
+				s = "\u21D7";
+				break;
 			case EAST:
-				return "Wschód";
+				s = "\u21D2";
+				break;
+			case SOUTHEAST:
+				s = "\u21D8";
+				break;
 			case SOUTH:
-				 return "Południe";
+				s = "\u21D3";
+				break;
+			case SOUTHWEST:
+				s = "\u21D9";
+				break;
 			case WEST:
-				return "Zachód";
-			default:
-				throw new IllegalStateException("Unexpected value: " + this);
+				s = "\u21D0";
+				break;
+			case NORTHWEST:
+				s = "\u21D6";
+				break;
 		}
+		return s;
 	}
 
-	public MapDirection next() {
-		switch(this) {
-			case NORTH:
-				return EAST;
-			case EAST:
-				return SOUTH;
-			case SOUTH:
-				return WEST;
-			case WEST:
-				return NORTH;
-			default:
-				throw new IllegalStateException("Unexpected value: " + this);
-		}
+	public MapDirection rotate(int rotation) {
+		int n = MapDirection.values().length;
+		return MapDirection.values()[(this.ordinal() + rotation) % n];
 	}
 
-	public MapDirection previous() {
-		switch(this) {
-			case NORTH:
-				return WEST;
-			case EAST:
-				return NORTH;
-			case SOUTH:
-				return EAST;
-			case WEST:
-				return SOUTH;
-			default:
-				throw new IllegalStateException("Unexpected value: " + this);
-		}
-	}
-
-	public Vector2d toUnitVector() {
+	public Vector2d toUnitVector(TorusMap map) {
 		Vector2d unitVector;
 		switch(this) {
 			case NORTH:
-				unitVector = new Vector2d(0, 1);
+				unitVector = new Vector2d(map, 0, 1);
+				break;
+			case NORTHEAST:
+				unitVector = new Vector2d(map, 1,1);
 				break;
 			case EAST:
-				unitVector = new Vector2d(1, 0);
+				unitVector = new Vector2d(map, 1, 0);
+				break;
+			case SOUTHEAST:
+				unitVector = new Vector2d(map, 1, -1);
 				break;
 			case SOUTH:
-				unitVector = new Vector2d (0, -1);
+				unitVector = new Vector2d (map, 0, -1);
+				break;
+			case SOUTHWEST:
+				unitVector = new Vector2d(map, -1, -1);
 				break;
 			case WEST:
-				unitVector = new Vector2d(-1, 0);
+				unitVector = new Vector2d(map, -1, 0);
+				break;
+			case NORTHWEST:
+				unitVector = new Vector2d(map, -1, 1);
 				break;
 			default:
 				throw new IllegalStateException("Unexpected value: " + this);
 		}
 		return unitVector;
+	}
+
+	public MapDirection next() {
+		int n = MapDirection.values().length;
+		return MapDirection.values()[(this.ordinal() + 1) % n];
+	}
+
+	public static MapDirection getRandom() {
+		Random rand = new Random();
+		return MapDirection.values()[rand.nextInt(8)];
 	}
 
 }

@@ -1,10 +1,10 @@
 package agh.cs.lab;
 
-public class Grass implements IMapElement {
+public class Plant { //TODO wyalić plant - nie jest obecnie używane
 
 	private Vector2d position;
 
-	Grass(Vector2d position) {
+	Plant(Vector2d position) {
 		this.position = position;
 	}
 
