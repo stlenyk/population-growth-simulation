@@ -1,6 +1,6 @@
 package agh.cs.lab;
 
-public interface IObserver {
+public interface IObserverPositions {
 
 	void positionChanged(Vector2d oldPosition, Vector2d newPosition, Animal animal); /** when an animal moves **/ // == positionFreed(oldPosition) + positionTaken(newPosition)
 

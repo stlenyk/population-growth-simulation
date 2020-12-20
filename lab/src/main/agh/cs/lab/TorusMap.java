@@ -2,14 +2,14 @@ package agh.cs.lab;
 
 import java.util.*;
 
-public class TorusMap implements IObserver {
+public class TorusMap implements IObserverPositions {
 
 	public final int width, height; //TODO czy musi być private skoro jest już final?
 	public final double jungleRatio;
 	public final Vector2d jungleLowerLeft, jungleUpperRight;
 	public int currID = 0;
 	public SortedSet<AnimalSortingElement> animals;
-	public HashSet<Vector2d> plants;
+	public HashSet<Vector2d> plants, jungle, savanna;
 	public HashSetGetRandom emptyJungle, emptySavanna, depopulatedAreas; // empty - no animals or plants; depopulated - no animals
 	public HashMap<Vector2d, Integer> occupiedPositions; // number of animals on each position
 
@@ -17,11 +17,11 @@ public class TorusMap implements IObserver {
 		this.width = width;
 		this.height = height;
 		this.jungleRatio = jungleRatio;
-		jungleLowerLeft = new Vector2d(this, width/2 - (int)(jungleRatio*width*0.5), height/2 - (int)(jungleRatio*height*0.5));
-		jungleUpperRight = new Vector2d(this, width/2 + (int)(jungleRatio*width*0.5), height/2 + (int)(jungleRatio*height*0.5));
+		jungleLowerLeft = new Vector2d(this, width/2 - (int)(jungleRatio*width*0.5), height/2 - (int)(jungleRatio*height*0.5) + 1);
+		jungleUpperRight = new Vector2d(this, width/2 + (int)(jungleRatio*width*0.5), height/2 + (int)(jungleRatio*height*0.5) + 1);
 		animals = new TreeSet<>();
 		plants = new HashSet<>();
-		emptyJungle = new HashSetGetRandom((int) (jungleRatio*jungleRatio*width*height)); // TODO zastanowić się jakie dokładnie powinny być te wymiary
+		emptyJungle = new HashSetGetRandom((int) (jungleRatio*jungleRatio*width*height*2)); // TODO zastanowić się jakie dokładnie powinny być te wymiary
 		emptySavanna = new HashSetGetRandom(width*height);
 		depopulatedAreas = new HashSetGetRandom(width*height);
 		occupiedPositions = new HashMap<>();

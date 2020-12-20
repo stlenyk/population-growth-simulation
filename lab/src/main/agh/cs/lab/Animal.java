@@ -1,7 +1,5 @@
 package agh.cs.lab;
 
-import com.sun.management.GarbageCollectionNotificationInfo;
-
 import java.util.*;
 
 public class Animal {
@@ -12,7 +10,7 @@ public class Animal {
 	private Genotype genotype;
 	private int energy;
 	private final int ID;
-	private final List<IObserver> observers;
+	private final List<IObserverPositions> observers;
 
 	public Animal(TorusMap map, Vector2d initialPosition, int energy) {
 		this.map = map;
@@ -104,11 +102,11 @@ public class Animal {
 	}
 
 
-	public void addObserver(IObserver observer) {
+	public void addObserver(IObserverPositions observer) {
 		observers.add(observer);
 	}
 
-	public void removeObserver(IObserver observer) {
+	public void removeObserver(IObserverPositions observer) {
 		observers.remove(observer);
 	}
 

@@ -23,24 +23,29 @@ public class HashSetGetRandom {
 		rand = new Random();
 	}
 
-	/** Doesn't add element if the structure has already reached its maximum capacity. **/
-	public void add(Vector2d position) {
-		if(lastIndex+1 > array.length-1)
-			return;
+	/** Throws exception if maximum capacity is already reached **/
+	public void add(Vector2d position) throws ArrayIndexOutOfBoundsException {
+		if(lastIndex+1 > array.length-1) {
+			throw new ArrayIndexOutOfBoundsException("can't add new item due to reaching max capacity");
+		}
 		array[++lastIndex] = position;
 		hashMap.put(position, lastIndex);
 	}
 
 	/** Will skip if position doesn't exist in the structure **/
-	public void remove(Vector2d position) {
+	public void remove(Vector2d position) throws ArrayIndexOutOfBoundsException {
 		Object arrayIndexIsNull = hashMap.get(position);
 		if(arrayIndexIsNull == null)
 			return;
 		hashMap.remove(position);
 		int arrayIndex = (int) arrayIndexIsNull;
-		array[arrayIndex] = array[lastIndex];
-		if(lastIndex > 0)
+		if(lastIndex < 0) {
+			throw new ArrayIndexOutOfBoundsException("\nlastIndex:\t" + lastIndex + "\narrayIndex\t" + arrayIndex + "\narrayLen\t" + array.length + "\nhashMapSize\t" + hashMap.size());
+		}
+		if(lastIndex > arrayIndex) {
+			array[arrayIndex] = array[lastIndex];
 			hashMap.put(array[arrayIndex], arrayIndex);
+		}
 		lastIndex--;
 	}
 

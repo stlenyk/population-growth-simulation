@@ -1,6 +1,5 @@
 package agh.cs.lab;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,7 +9,7 @@ public class SimulationEngine {
 
 	private TorusMap map;
 	private final int startEnergy, moveEnergy, plantEnergy, noOfAnimals;
-	private ArrayList<IObserver> observers;
+	private ArrayList<IObserverPositions> observers;
 
 	public SimulationEngine(int width, int height, double jungleRatio, int startEnergy, int moveEnergy, int plantEnergy, int noOfAnimals) {
 		this.startEnergy = startEnergy;
@@ -20,7 +19,7 @@ public class SimulationEngine {
 		map = new TorusMap(width, height, jungleRatio);
 	}
 
-	public void simulate() { // TODO Zakładana kolejność: move, breed, eat, die. Sprawdzić hipotezę, że nie trzeba updatować SortedSet<AnimalSortingElement> podczas move() (aczkolwiek teraz jest updatowane)
+	public void runSimulation() { // TODO Zakładana kolejność: move, breed, eat, die. Sprawdzić hipotezę, że nie trzeba updatować SortedSet<AnimalSortingElement> podczas move() (aczkolwiek teraz jest updatowane)
 		map.generatePlants();
 		move();
 		breed();

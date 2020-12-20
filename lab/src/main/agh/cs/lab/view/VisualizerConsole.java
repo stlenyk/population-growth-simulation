@@ -1,14 +1,19 @@
-package agh.cs.lab;
+package agh.cs.lab.view;
+
+import agh.cs.lab.HashSetGetRandom;
+import agh.cs.lab.MapDirection;
+import agh.cs.lab.TorusMap;
+import agh.cs.lab.Vector2d;
 
 import java.util.HashSet;
 
 import static java.lang.System.out;
 
-public class Visualizer {
+public class VisualizerConsole {
 
 	private TorusMap map;
 
-	public Visualizer(TorusMap map) {
+	public VisualizerConsole(TorusMap map) {
 		this.map = map;
 	}
 

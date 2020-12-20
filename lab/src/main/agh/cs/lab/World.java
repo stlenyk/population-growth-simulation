@@ -22,8 +22,11 @@ public class World {
 //			out.println(animal);
 //		}
 		out.println("\u21D1");
-		ArrayList<ArrayList<Integer>> al = new ArrayList<>();
-		out.println(al.size());
+		HashSetGetRandom hashSetGetRandom = new HashSetGetRandom(10);
+		TorusMap map = new TorusMap(1, 1, 2);
+		hashSetGetRandom.remove(new Vector2d(map,2, 3));
+
+
 	}
 
 }
