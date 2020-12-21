@@ -6,7 +6,7 @@ public class Animal {
 
 	private MapDirection exposure = MapDirection.NORTH;
 	private Vector2d position;
-	private TorusMap map;
+	private final TorusMap map;
 	private Genotype genotype;
 	private int energy;
 	private final int ID;
@@ -28,7 +28,7 @@ public class Animal {
 
 	public void move() {
 		Random rand = new Random();
-		exposure = exposure.rotate(genotype.genes[rand.nextInt(genotype.genes.length)]);
+		exposure = exposure.rotate(genotype.getGenes()[rand.nextInt(genotype.getGenes().length)]);
 		Vector2d oldPosition = position;
 		position = position.add(exposure.toUnitVector(map));
 		positionChanged(oldPosition, position);

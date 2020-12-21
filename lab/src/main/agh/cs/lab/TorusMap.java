@@ -1,18 +1,16 @@
 package agh.cs.lab;
 
-import org.junit.internal.builders.JUnit3Builder;
-
 import java.util.*;
 
 public class TorusMap implements IObserverPositions {
 
-	public final int width, height; //TODO czy musi być private skoro jest już final?
+	public final int width, height;
 	public final int moveEnergy, plantEnergy;
 	public final double jungleRatio;
 	public final Vector2d jungleLowerLeft, jungleUpperRight;
-	public int currID = 0;
+	private int currID = 0;
 	public final SortedSet<AnimalSortingElement> animalsSorted;
-	public HashSet<Vector2d> plants, animals;
+	public final HashSet<Vector2d> plants, animals;
 	public final HashSetGetRandom emptyJungle, emptySavanna, depopulatedAreas; // empty - no animalsSorted or plants; depopulated - no animalsSorted
 	public final HashMap<Vector2d, Integer> occupiedPositions; // number of animalsSorted on each position
 
@@ -27,7 +25,7 @@ public class TorusMap implements IObserverPositions {
 		animalsSorted = new TreeSet<>();
 		plants = new HashSet<>();
 		animals = new HashSet<>();
-		emptyJungle = new HashSetGetRandom((int) (width*height)); // TODO zastanowić się jakie dokładnie powinny być te wymiary
+		emptyJungle = new HashSetGetRandom((width*height));
 		emptySavanna = new HashSetGetRandom(width*height);
 		depopulatedAreas = new HashSetGetRandom(width*height);
 		occupiedPositions = new HashMap<>();
@@ -45,7 +43,6 @@ public class TorusMap implements IObserverPositions {
 				}
 			}
 		}
-		//TODO sprawdzić czy dobre pola są dodawane do emptyJgl/Sav - m.in. czy jgl jest na środku mapy
 	}
 
 	public boolean isJungle(Vector2d position) {
@@ -88,10 +85,6 @@ public class TorusMap implements IObserverPositions {
 		return plants;
 	}
 
-	public HashSetGetRandom getDepopulatedAreas() {
-		return depopulatedAreas;
-	}
-
 	@Override
 	public void positionChanged(Vector2d oldPosition, Vector2d newPosition, Animal animal) {
 		positionFreed(oldPosition, animal);
@@ -123,8 +116,6 @@ public class TorusMap implements IObserverPositions {
 	public void positionTaken(Vector2d position, Animal animal) {
 		animals.add(position);
 		animalsSorted.add(new AnimalSortingElement(position, animal.getEnergy(), animal));
-		if (animals.contains(position) ^ animalsSorted.contains(new AnimalSortingElement(position, animal.getEnergy(), animal))) System.out.println("nieee");
-//		System.out.println(animals.contains(position) ^ animalsSorted.contains(new AnimalSortingElement(position, animal.getEnergy(), animal)));
 		depopulatedAreas.remove(position);
 		emptyJungle.remove(position);
 		emptySavanna.remove(position);

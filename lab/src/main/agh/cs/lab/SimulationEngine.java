@@ -7,7 +7,7 @@ import java.util.SortedSet;
 
 public class SimulationEngine {
 
-	private TorusMap map;
+	private final TorusMap map;
 	public final int startEnergy, moveEnergy, plantEnergy, noOfAnimals;
 	private long turnCount=0, deathCount=0;
 
@@ -19,7 +19,7 @@ public class SimulationEngine {
 		map = new TorusMap(config.width, config.height, config.jungleRatio, config.moveEnergy, config.plantEnergy);
 	}
 
-	public void runSimulation() { // TODO Zakładana kolejność: move, breed, eat, die. Sprawdzić hipotezę, że nie trzeba updatować SortedSet<AnimalSortingElement> podczas move() (aczkolwiek teraz jest updatowane)
+	public void runSimulation() {
 		map.generatePlants();
 		move();
 		breed();
@@ -46,7 +46,7 @@ public class SimulationEngine {
 		}
 	}
 
-	private void breed() { //TODO losowanie zwierzęta do rozmnażania zamiast wybierania kiedy mają tyle samo energii
+	private void breed() {
 		SortedSet<AnimalSortingElement> animals = map.getAnimalsSorted();
 		if(animals.isEmpty()) return;
 		Animal parent1, parent2;
@@ -84,7 +84,7 @@ public class SimulationEngine {
 		HashSet<Vector2d> plants = map.getPlants();
 		Iterator<AnimalSortingElement> it = animals.iterator();
 		ArrayList <ArrayList<Animal>> animalsToFeed = new ArrayList<>();
-		ArrayList<Animal> currPlant = new ArrayList();
+		ArrayList<Animal> currPlant = new ArrayList<>();
 		Animal animal;
 		do {
 			animal = it.next().animal;

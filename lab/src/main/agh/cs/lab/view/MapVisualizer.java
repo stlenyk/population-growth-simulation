@@ -2,22 +2,24 @@ package agh.cs.lab.view;
 
 import agh.cs.lab.*;
 import agh.cs.lab.Config;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.SplitPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.json.simple.parser.ParseException;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+
 import static java.lang.System.out;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.HashSet;
 
-public class MapVisualizer extends Application {
+public class MapVisualizer {
 
 	private final Color jungleColor = Color.rgb(153, 204, 255);
 	private final Color savannaColor = Color.rgb(255, 204, 0);
@@ -44,33 +46,7 @@ public class MapVisualizer extends Application {
 		}
 	}
 
-
 	private void drawTurn(TorusMap map, GraphicsContext gc, int cellSize, int gapSize) {
-
-		Vector2d cell = new Vector2d(map,0, 0);
-		Vector2d moveDown = MapDirection.SOUTH.toUnitVector(map);
-		Vector2d moveRight = MapDirection.EAST.toUnitVector(map);
-		HashSet<Vector2d> plants = map.getPlants();
-		HashSetGetRandom depopulatedAreas = map.getDepopulatedAreas();
-		for(int i=0; i<map.height; i++) {
-			for(int j=0; j<map.width; j++) {
-//				if(!depopulatedAreas.contains(cell)) {
-				if(map.animals.contains(cell)) {
-					gc.setFill(animalColor);
-					gc.fillOval(j * (cellSize+gapSize) + gapSize, i*(cellSize+gapSize) + gapSize, cellSize, cellSize);
-				}
-				if(plants.contains(cell)) {
-					gc.setFill(plantColor);
-					gc.fillOval(j * (cellSize+gapSize) + gapSize, i*(cellSize+gapSize) + gapSize, cellSize, cellSize);
-				}
-				cell = cell.add(moveRight);
-			}
-			cell = cell.add(moveDown);
-		}
-
-	}
-
-	private void drawTurn2(TorusMap map, GraphicsContext gc, int cellSize, int gapSize) {
 		for(Vector2d cell: map.plants) {
 			gc.setFill(plantColor);
 			gc.fillOval(cell.x * (cellSize+gapSize) + gapSize, cell.y*(cellSize+gapSize) + gapSize, cellSize, cellSize);
@@ -81,65 +57,75 @@ public class MapVisualizer extends Application {
 		}
 	}
 
-	@Override
-	public void start(final Stage primaryStage) throws IOException, ParseException {
+	public void drawSimulation(final Stage stage) throws IOException, ParseException {
 
-		Group root = new Group();
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-
-		SimulationEngine simulationEngine = new SimulationEngine(new Config());
-		TorusMap map = simulationEngine.getMap();
+		final Config[] config = {new Config()};
+		final SimulationEngine[] simulationEngine = {new SimulationEngine(config[0])};
+		final TorusMap[] map = {simulationEngine[0].getMap()};
 		final int canvasMaxSize = 800;
 		final int canvasWidth, canvasHeight;
-		if(map.width >= map.height) {
+		if(map[0].width >= map[0].height) {
 			canvasWidth = canvasMaxSize;
-			canvasHeight = (int) ((double)map.height / (double)map.width * (double)canvasMaxSize);
+			canvasHeight = (int) ((double) map[0].height / (double) map[0].width * (double)canvasMaxSize);
 		}
 		else {
 			canvasHeight = canvasMaxSize;
-			canvasWidth = (int) ((double)map.width / (double)map.height * (double)canvasMaxSize);
+			canvasWidth = (int) ((double) map[0].width / (double) map[0].height * (double)canvasMaxSize);
 		}
 
 		Canvas canvas = new Canvas(canvasWidth, canvasHeight);
-		root.getChildren().add(canvas);
 
-		Button start = new Button("Start");
-
-
-
-		primaryStage.show();
-
-		int gapSize = (int) (0.1*(double)canvasWidth / (double)map.width);
-		int cellSize = (int) ((canvas.getWidth() - gapSize*(map.width+1)) / map.width);
+		int gapSize = (int) (0.1*(double)canvasWidth / (double) map[0].width);
+		int cellSize = (int) ((canvas.getWidth() - gapSize*(map[0].width+1)) / map[0].width);
 
 		GraphicsContext gc = canvas.getGraphicsContext2D();
 
-		simulationEngine.placeAnimals();
+		stage.show();
 
-		final long[] t = {System.nanoTime()};
-		new AnimationTimer() {
+		simulationEngine[0].placeAnimals();
+		drawMap(map[0], gc, cellSize, gapSize);
+		drawTurn(map[0], gc, cellSize, gapSize);
+
+		AnimationTimer animationTimer = new AnimationTimer() {
 			@Override
 			public void handle(long l) {
-				if(simulationEngine.getTurnCount() % 60 == 59)  {
-					long t0 = System.nanoTime();
-					out.println("FPS\t" + 60.0 / ((double)(t0 - t[0]) / 1000000000.0));
-					t[0] = t0;
-				}
-				drawMap(map, gc, cellSize, gapSize);
-				drawTurn2(map, gc, cellSize, gapSize);
-				simulationEngine.runSimulation();
-				if(simulationEngine.getTurnCount() == 1e9) {
+				drawMap(map[0], gc, cellSize, gapSize);
+				drawTurn(map[0], gc, cellSize, gapSize);
+				simulationEngine[0].runSimulation();
+				if(simulationEngine[0].getTurnCount() == 1e9) {
 					stop();
 				}
 			}
-		}.start();
+		};
+		Button startButton = new Button("start");
+		Button stopButton = new Button("stop");
+		Button restartButton = new Button("restart");
+		Button stepButton = new Button("step");
+		startButton.setOnAction(event -> animationTimer.start());
+		stopButton.setOnAction(event -> animationTimer.stop());
+		restartButton.setOnAction(
+				event -> {
+					animationTimer.stop();
+					simulationEngine[0] = new SimulationEngine(config[0]);
+					map[0] = simulationEngine[0].getMap();
+					simulationEngine[0].placeAnimals();
+					drawMap(map[0], gc, cellSize, gapSize);
+					drawTurn(map[0], gc, cellSize, gapSize);
+				}
+		);
+		stepButton.setOnAction(
+				event -> {
+					simulationEngine[0].runSimulation();
+					drawMap(map[0], gc, cellSize, gapSize);
+					drawTurn(map[0], gc, cellSize, gapSize);
+				}
+		);
+		VBox buttonVBox = new VBox(startButton, stopButton, restartButton, stepButton);
+		SplitPane splitPane = new SplitPane();
+		splitPane.getItems().addAll(buttonVBox, canvas);
+		Scene scene = new Scene(splitPane);
+		stage.setScene(scene);
 
 	}
 
-
-
-	public static void main(String[] args) {
-		launch(args);
-	}
 }

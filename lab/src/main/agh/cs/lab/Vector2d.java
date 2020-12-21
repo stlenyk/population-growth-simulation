@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Vector2d {
 
 	public final int x, y;
-	private TorusMap map;
+	private final TorusMap map;
 
 	public Vector2d(TorusMap map, int x, int y) {
 		this.map = map;
@@ -15,8 +15,7 @@ public class Vector2d {
 
 	@Override
 	public String toString() {
-		String s = "(" + this.x + "," + this.y + ")";
-		return s;
+		return "(" + this.x + "," + this.y + ")";
 	}
 
 	public boolean precedes(Vector2d other) {
@@ -41,11 +40,6 @@ public class Vector2d {
 		Vector2d v = new Vector2d(map, (this.x+other.x + map.width) % map.width, (this.y+other.y + map.height) % map.height);
 		return v;
 	}
-
-//	public Vector2d subtract(Vector2d other) {
-//		Vector2d v = new Vector2d(this.x-other.x, this.y-other.y);
-//		return v;
-//	}
 
 	@Override
 	public boolean equals(Object other){
