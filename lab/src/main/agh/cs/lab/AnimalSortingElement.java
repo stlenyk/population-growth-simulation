@@ -2,8 +2,8 @@ package agh.cs.lab;
 
 public class AnimalSortingElement implements Comparable<AnimalSortingElement> {
 
-	private final Vector2d position;
-	private final int energy;
+	public final Vector2d position;
+	public final int energy;
 	public final Animal animal;
 
 	public AnimalSortingElement(Vector2d position, int energy, Animal animal) {
@@ -21,6 +21,7 @@ public class AnimalSortingElement implements Comparable<AnimalSortingElement> {
 			if (e1 != e2) {
 				return e2 - e1;
 			} else {
+//				if(this.animal.getID() - other.animal.getID() == 0) System.out.println(this + " " + other); //throw new IllegalArgumentException("animals with same ID: " + this + " " + other);
 				return this.animal.getID() - other.animal.getID();
 			}
 		} else if (v1.x == v2.x) {

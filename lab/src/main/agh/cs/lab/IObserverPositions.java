@@ -8,7 +8,7 @@ public interface IObserverPositions {
 
 	void positionTaken(Vector2d position, Animal animal); /** when an animal is born **/
 
-	public void energyChanged(int oldEnergy, int newEnergy, Animal animal); /** when an animal feeds on a plant **/
+	void energyChanged(int oldEnergy, int newEnergy, Animal animal); /** when an animal feeds on a plant **/
 
 
 }

@@ -26,14 +26,14 @@ public class Animal {
 		return new Animal(map, position, energy);
 	}
 
-	public void move(int energy) {
+	public void move() {
 		Random rand = new Random();
 		exposure = exposure.rotate(genotype.genes[rand.nextInt(genotype.genes.length)]);
 		Vector2d oldPosition = position;
 		position = position.add(exposure.toUnitVector(map));
 		positionChanged(oldPosition, position);
 		int oldEnergy = this.energy;
-		this.energy -= energy;
+		this.energy -= map.moveEnergy;
 		energyChanged(oldEnergy, this.energy);
 	}
 
@@ -57,14 +57,12 @@ public class Animal {
 		}
 		Animal child = new Animal(map, position, parent1.energy/4 + parent2.energy/4);
 		child.genotype = new Genotype(parent1, parent2);
-		parent1.energy -= parent1.energy/4;
-		parent2.energy -= parent1.energy/4;
 		return child;
 	}
 
-	public void eat(int energy) {
+	public void eat() {
 		int oldEnergy = this.energy;
-		this.energy += energy;
+		this.energy += map.plantEnergy;
 		energyChanged(oldEnergy, this.energy);
 	}
 
@@ -72,12 +70,11 @@ public class Animal {
 		positionFreed(position);
 	}
 
-	public void increaseEnergy(int energy) {
-		this.energy += energy;
-	}
-
-	public void decreaseEnergy(int energy) {
-		this.energy -= energy;
+	public void reproduced() {
+		int oldEnergy;
+		oldEnergy = energy;
+		energy -= energy / 4;
+		energyChanged(oldEnergy, this.energy);
 	}
 
 
