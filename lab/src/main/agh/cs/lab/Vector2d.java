@@ -7,7 +7,7 @@ public class Vector2d {
 	public final int x, y;
 	private final TorusMap map;
 
-	public Vector2d(TorusMap map, int x, int y) {
+	public Vector2d(TorusMap map, int x, int y) {	// wektor nie może istnieć bez mapy?
 		this.map = map;
 		this.x = x;
 		this.y = y;

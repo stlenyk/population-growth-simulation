@@ -53,7 +53,7 @@ public enum MapDirection {
 		Vector2d unitVector;
 		switch(this) {
 			case NORTH:
-				unitVector = new Vector2d(map, 0, 1);
+				unitVector = new Vector2d(map, 0, 1);	// nowy wektor co wywołanie
 				break;
 			case NORTHEAST:
 				unitVector = new Vector2d(map, 1,1);
@@ -88,7 +88,7 @@ public enum MapDirection {
 	}
 
 	public static MapDirection getRandom() {
-		Random rand = new Random();
+		Random rand = new Random();	// nowy obiekt co wywołanie
 		return MapDirection.values()[rand.nextInt(8)];
 	}
 

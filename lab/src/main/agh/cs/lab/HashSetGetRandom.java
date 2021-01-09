@@ -10,7 +10,7 @@ This class represents a structure that stores objects of class Vector2d and supp
  - getRandom
 **/
 
-public class HashSetGetRandom {
+public class HashSetGetRandom {	// niejasna nazwa
 	private Vector2d[] array;
 	private HashMap<Vector2d, Integer> hashMap;
 	private int lastIndex;

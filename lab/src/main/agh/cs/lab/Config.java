@@ -30,7 +30,7 @@ public class Config {
 				jungleRatio < 0 || jungleRatio > 1 ||
 				startEnergy < 0 ||
 				startAnimals < 0 || startAnimals > width * height
-		) throw new IOException("Parameters don't match required formatting");
+		) throw new IOException("Parameters don't match required formatting");	// to się nie kwalifikuje na IOException
 
 	}
 

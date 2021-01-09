@@ -46,7 +46,7 @@ public class SimulationEngine {
 		}
 	}
 
-	private void breed() {
+	private void breed() {	// ta metoda mnie pokonała
 		SortedSet<AnimalSortingElement> animals = map.getAnimalsSorted();
 		if(animals.isEmpty()) return;
 		Animal parent1, parent2;

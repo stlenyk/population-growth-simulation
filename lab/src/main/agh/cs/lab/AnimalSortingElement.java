@@ -1,6 +1,6 @@
 package agh.cs.lab;
 
-public class AnimalSortingElement implements Comparable<AnimalSortingElement> {
+public class AnimalSortingElement implements Comparable<AnimalSortingElement> {	// niejasna nazwa
 
 	public final Vector2d position;
 	public final int energy;

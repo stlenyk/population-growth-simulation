@@ -9,7 +9,7 @@ public class TorusMap implements IObserverPositions {
 	public final double jungleRatio;
 	public final Vector2d jungleLowerLeft, jungleUpperRight;
 	private int currID = 0;
-	public final SortedSet<AnimalSortingElement> animalsSorted;
+	public final SortedSet<AnimalSortingElement> animalsSorted;	// public?
 	public final HashSet<Vector2d> plants, animals;
 	public final HashSetGetRandom emptyJungle, emptySavanna, depopulatedAreas; // empty - no animalsSorted or plants; depopulated - no animalsSorted
 	public final HashMap<Vector2d, Integer> occupiedPositions; // number of animalsSorted on each position
@@ -92,7 +92,7 @@ public class TorusMap implements IObserverPositions {
 	}
 
 	@Override
-	public void positionFreed(Vector2d position, Animal animal) {
+	public void positionFreed(Vector2d position, Animal animal) {	// public?
 		animalsSorted.remove(new AnimalSortingElement(position, animal.getEnergy(), animal));
 		int noOfAnimals = occupiedPositions.get(position);
 		occupiedPositions.put(position, --noOfAnimals);

@@ -1,6 +1,6 @@
 package agh.cs.lab;
 
-public interface IObserverPositions {
+public interface IObserverPositions {	//IPositionsObserver
 
 	void positionChanged(Vector2d oldPosition, Vector2d newPosition, Animal animal); /** when an animal moves **/ // == positionFreed(oldPosition) + positionTaken(newPosition)
 
@@ -8,7 +8,7 @@ public interface IObserverPositions {
 
 	void positionTaken(Vector2d position, Animal animal); /** when an animal is born **/
 
-	void energyChanged(int oldEnergy, int newEnergy, Animal animal); /** when an animal feeds on a plant **/
+	void energyChanged(int oldEnergy, int newEnergy, Animal animal); /** when an animal feeds on a plant **/	// jest potrzeba przekazywać nową energię, skoro Pan przekazuje całe zwierzę?
 
 
 }

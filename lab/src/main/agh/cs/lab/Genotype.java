@@ -24,7 +24,7 @@ public class Genotype {
 			int temp = split1;
 			split1 = split2;
 			split2 = split1;
-		}
+		}	// a co jeśli split1 == split2?
 		int[] par1genes = parent1.getGenotype().genes;
 		int[] par2genes = parent2.getGenotype().genes;
 		genes = Stream.of(
@@ -58,7 +58,7 @@ public class Genotype {
 	}
 
 	public int[] getGenes() {
-		return genes;
+		return genes;	// a tablica nie jest przypadkiem modyfikowalna?
 	}
 
 }
